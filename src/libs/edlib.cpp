@@ -751,6 +751,13 @@ static int myersCalcEditDistanceNW(Word* Peq, int W, int maxNumBlocks,
 
         // If band stops to exist finish
         if (lastBlock < firstBlock) {
+            if (*alignData) {
+                (*alignData)->Ps[0] = blocks->P;
+                (*alignData)->Ms[0] = blocks->M;
+                (*alignData)->scores[0] = blocks->score;
+                (*alignData)->firstBlocks[0] = firstBlock;
+                (*alignData)->lastBlocks[0] = firstBlock;
+            }
             *bestScore_ = *position_ = -1;
             delete[] blocks;
             return EDLIB_STATUS_OK;
